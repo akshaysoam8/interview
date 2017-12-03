@@ -23,6 +23,11 @@ server.listen(process.env.port || 80, function(err) {
 });
 
 app.post('/car', function(req, res) {
+    if(!req.body.year || !req.body.model || isNaN(req.body.year)) {
+        res.send(400);
+        return;
+    }
+
     var data = req.body.year + ', ' + req.body.model + '\n';
 
     fs.appendFile('data.csv', data, function(err) {
